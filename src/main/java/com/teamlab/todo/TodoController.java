@@ -17,4 +17,14 @@ public class TodoController {
         model.addAttribute("message", "Hello Springboot");
         return "index";
     }
+
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String edit(Model model) {
+        return "edit";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String search(Model model) {
+        return "search";
+    }
 }
