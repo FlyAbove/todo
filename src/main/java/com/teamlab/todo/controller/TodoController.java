@@ -1,7 +1,7 @@
 package com.teamlab.todo.controller;
 
 import com.teamlab.todo.entity.Todo;
-import com.teamlab.todo.form.EditForm;
+import com.teamlab.todo.form.TodoForm;
 import com.teamlab.todo.dto.TodoDto;
 import com.teamlab.todo.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,11 +49,20 @@ public class TodoController {
     }
 
     /**
+     * 作成
+     */
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String create(@ModelAttribute TodoForm todoForm) {
+        todoService.create(todoForm);
+        return "redirect:/";
+    }
+
+    /**
      * 更新
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(@ModelAttribute EditForm editForm) {
-        todoService.update(editForm);
+    public String update(@ModelAttribute TodoForm todoForm) {
+        todoService.update(todoForm);
         return "redirect:/";
     }
 

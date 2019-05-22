@@ -5,7 +5,7 @@ package com.teamlab.todo.form;
  *
  * @author noda.
  */
-public class EditForm {
+public class TodoForm {
     /**
      * ID
      */
@@ -21,7 +21,7 @@ public class EditForm {
      */
     private String deadline;
 
-    public EditForm() {
+    public TodoForm() {
     }
 
     public Long getTodoId() {

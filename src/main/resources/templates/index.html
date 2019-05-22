@@ -10,23 +10,23 @@
 <div th:replace="parts/header"></div>
 
 <div class="content">
-    <div class="todo">
+    <form class="todo" method="post" action="/create">
         <div class="todo-title">新しいToDoを作成する</div>
         <div class="todo-input">
             <span>
                 <span class="todo-label_1">ToDo名</span>
-                <input class="todo-text" type="text">
+                <input class="todo-text" type="text" name="name">
             </span>
             <br>
             <span>
                 <span class="todo-label_2">期日</span>
-                <input class="todo-text" type="text">
+                <input class="todo-text" type="text" name="deadline">
             </span>
         </div>
         <div class="todo-submit">
             <button class="todo-submit_button">ToDoの追加</button>
         </div>
-    </div>
+    </form>
 
     <h3 class="todo-message" th:text="|ToDoが${todoDtoList.size()}件見つかりました|"></h3>
 

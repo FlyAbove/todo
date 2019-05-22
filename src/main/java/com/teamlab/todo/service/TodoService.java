@@ -1,11 +1,12 @@
 package com.teamlab.todo.service;
 
 import com.teamlab.todo.entity.Todo;
-import com.teamlab.todo.form.EditForm;
+import com.teamlab.todo.form.TodoForm;
 import com.teamlab.todo.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,15 +38,30 @@ public class TodoService {
     }
 
     /**
-     * 更新
-     * @param editForm フォーム
+     * 登録
+     * @param todoForm フォーム
      */
-    public void update(EditForm editForm) {
-        Optional<Todo> todoOptional = todoRepository.findById(editForm.getTodoId());
+    public void create(TodoForm todoForm) {
+        Todo todo = new Todo();
+        Date now = new Date();
+        todo.setName(todoForm.getName());
+        todo.setDeadline(todoForm.getDeadline());
+        todo.setCreateAt(now);
+        todo.setUpdateAt(now);
+        todoRepository.save(todo);
+    }
+
+    /**
+     * 更新
+     * @param todoForm フォーム
+     */
+    public void update(TodoForm todoForm) {
+        Optional<Todo> todoOptional = todoRepository.findById(todoForm.getTodoId());
         if (todoOptional.isPresent()) {
             Todo todo = todoOptional.get();
-            todo.setName(editForm.getName());
-            todo.setDeadline(editForm.getDeadline());
+            todo.setName(todoForm.getName());
+            todo.setDeadline(todoForm.getDeadline());
+            todo.setUpdateAt(new Date());
             todoRepository.save(todo);
         }
     }
