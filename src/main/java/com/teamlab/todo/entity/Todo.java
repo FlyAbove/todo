@@ -1,4 +1,4 @@
-package com.teamlab.todo.Entity;
+package com.teamlab.todo.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,7 +30,7 @@ public class Todo {
     /**
      * 期日
      */
-    private Date deadline;
+    private String deadline;
 
     /**
      * 完了フラグ
@@ -63,11 +63,11 @@ public class Todo {
         this.name = name;
     }
 
-    public Date getDeadline() {
+    public String getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
 

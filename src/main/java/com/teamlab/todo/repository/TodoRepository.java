@@ -1,6 +1,6 @@
-package com.teamlab.todo.Repository;
+package com.teamlab.todo.repository;
 
-import com.teamlab.todo.Entity.Todo;
+import com.teamlab.todo.entity.Todo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package com.teamlab.todo.dto;
 
-import com.teamlab.todo.Entity.Todo;
+import com.teamlab.todo.entity.Todo;
 import com.teamlab.todo.utils.DateUtils;
 
 /**
@@ -42,7 +42,7 @@ public class TodoDto {
     public TodoDto(Todo todo) {
         this.todoId = todo.getTodoId();
         this.name = todo.getName();
-        this.deadline = DateUtils.dateToString(todo.getDeadline());
+        this.deadline = todo.getDeadline();
         this.completionFlg = todo.isCompletionFlg();
         this.createAt = DateUtils.dateToString(todo.getCreateAt());
         this.updateAt = DateUtils.dateToString(todo.getUpdateAt());
