@@ -2,6 +2,7 @@ package com.teamlab.todo.service;
 
 import com.teamlab.todo.entity.Todo;
 import com.teamlab.todo.form.TodoForm;
+import com.teamlab.todo.form.TodoStatusForm;
 import com.teamlab.todo.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +62,20 @@ public class TodoService {
             Todo todo = todoOptional.get();
             todo.setName(todoForm.getName());
             todo.setDeadline(todoForm.getDeadline());
+            todo.setUpdateAt(new Date());
+            todoRepository.save(todo);
+        }
+    }
+
+    /**
+     * ステータス更新
+     * @param todoStatusForm ステータスフォーム
+     */
+    public void updateStatus(TodoStatusForm todoStatusForm) {
+        Optional<Todo> todoOptional = todoRepository.findById(todoStatusForm.getTodoId());
+        if (todoOptional.isPresent()) {
+            Todo todo = todoOptional.get();
+            todo.setCompletionFlg(!todoStatusForm.isCompletionFlg());
             todo.setUpdateAt(new Date());
             todoRepository.save(todo);
         }

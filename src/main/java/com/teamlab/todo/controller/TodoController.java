@@ -3,10 +3,13 @@ package com.teamlab.todo.controller;
 import com.teamlab.todo.entity.Todo;
 import com.teamlab.todo.form.TodoForm;
 import com.teamlab.todo.dto.TodoDto;
+import com.teamlab.todo.form.TodoStatusForm;
 import com.teamlab.todo.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,8 +55,10 @@ public class TodoController {
      * 作成
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@ModelAttribute TodoForm todoForm) {
-        todoService.create(todoForm);
+    public String create(@ModelAttribute @Validated TodoForm todoForm, BindingResult result) {
+        if (!result.hasErrors()) {
+            todoService.create(todoForm);
+        }
         return "redirect:/";
     }
 
@@ -61,8 +66,19 @@ public class TodoController {
      * 更新
      */
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String update(@ModelAttribute TodoForm todoForm) {
-        todoService.update(todoForm);
+    public String update(@ModelAttribute @Validated TodoForm todoForm, BindingResult result) {
+        if (!result.hasErrors()) {
+            todoService.update(todoForm);
+        }
+        return "redirect:/";
+    }
+
+    /**
+     * ステータス更新
+     */
+    @RequestMapping(value = "/update/status", method = RequestMethod.POST)
+    public String updateStatus(@ModelAttribute TodoStatusForm todoStatusForm) {
+        todoService.updateStatus(todoStatusForm);
         return "redirect:/";
     }
 

@@ -1,7 +1,9 @@
 package com.teamlab.todo.form;
 
+import javax.validation.constraints.NotEmpty;
+
 /**
- * 編集フォーム
+ * Todoフォーム
  *
  * @author noda.
  */
@@ -14,11 +16,13 @@ public class TodoForm {
     /**
      * 名前
      */
+    @NotEmpty
     private String name;
 
     /**
      * 期日
      */
+    @NotEmpty
     private String deadline;
 
     public TodoForm() {
