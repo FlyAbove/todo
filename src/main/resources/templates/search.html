@@ -12,49 +12,33 @@
 <div class="content">
 
     <form class="search">
-        <input class="search-text" type="text">
+        <input class="search-text" name="text" type="text" th:value="${text == null} ? '' : ${text}">
         <input class="search-submit" type="submit" value="検索">
     </form>
 
-    <h3 class="todo-message">ToDoが2件見つかりました</h3>
+    <h3 class="todo-message" th:if="${text != null}" th:text="${todoDtoList.size() == 0} ? '対象のToDoは見つかりません' : 'ToDoが' + ${todoDtoList.size()} + '件見つかりました'"></h3>
 
-    <div class="todo">
-        <div class="todo-title">レポート概要を作る</div>
+    <form class="todo" th:each="todo : ${todoDtoList}" action="/update/status" method="post">
+        <div class="todo-title">
+            <a th:text="${todo.getName()}" th:href="|/edit/${todo.getTodoId()}|"></a>
+        </div>
         <div class="todo-input">
             <span>
                 <span class="todo-list-label_1">期限：</span>
-                <label class="todo-list-text">2016年8月10日</label>
+                <label class="todo-list-text" th:text="${todo.getDeadline()}"></label>
             </span>
             <br>
             <span>
                 <span class="todo-list-label_2">作成日：</span>
-                <label class="todo-list-text">2016年8月1日</label>
+                <label class="todo-list-text" th:text="${todo.getCreateAt()}"></label>
             </span>
         </div>
         <div class="todo-list-submit">
-            <button class="todo-submit_button">編集</button>
-            <button class="todo-submit_button">完了</button>
+            <input type="hidden" name="todoId" th:value="${todo.getTodoId()}">
+            <input type="hidden" name="completionFlg" th:value="${todo.isCompletionFlg()}">
+            <button class="todo-submit_button" th:text="${todo.isCompletionFlg()} ? '完了' : '未完了'"></button>
         </div>
-    </div>
-
-    <div class="todo">
-        <div class="todo-title">レポート概要を作る</div>
-        <div class="todo-input">
-            <span>
-                <span class="todo-list-label_1">期限：</span>
-                <label class="todo-list-text">2016年8月10日</label>
-            </span>
-            <br>
-            <span>
-                <span class="todo-list-label_2">作成日：</span>
-                <label class="todo-list-text">2016年8月1日</label>
-            </span>
-        </div>
-        <div class="todo-list-submit">
-            <button class="todo-submit_button">編集</button>
-            <button class="todo-submit_button">完了</button>
-        </div>
-    </div>
+    </form>
 </div>
 
 </body>

@@ -12,7 +12,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -86,7 +88,16 @@ public class TodoController {
      * 検索
      */
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public String search(Model model) {
+    public String search(@RequestParam(name = "text", required = false) String text, Model model) {
+        if (Objects.nonNull(text)) {
+            List<Todo> todoList = todoService.findByNameContaining(text);
+            List<TodoDto> todoDtoList = todoList.stream().filter(todo -> !todo.isCompletionFlg()).map(TodoDto::new).collect(Collectors.toList());
+            model.addAttribute("text", text);
+            model.addAttribute("todoDtoList", todoDtoList);
+        } else {
+            model.addAttribute("text", null);
+            model.addAttribute("todoDtoList", new ArrayList<>());
+        }
         return "search";
     }
 }

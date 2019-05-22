@@ -39,6 +39,15 @@ public class TodoService {
     }
 
     /**
+     * 名前で検索
+     * @param text 検索文字列
+     * @return Optional
+     */
+    public List<Todo> findByNameContaining(String text) {
+        return todoRepository.findByNameContaining(text);
+    }
+
+    /**
      * 登録
      * @param todoForm フォーム
      */
